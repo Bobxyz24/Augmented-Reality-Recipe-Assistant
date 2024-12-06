@@ -1,0 +1,22 @@
+# recipe_assistant.py
+
+import cv2
+
+def display_recipe(recipe):
+    cap = cv2.VideoCapture(0)
+    step = 0
+    while cap.isOpened() and step < len(recipe):
+        ret, frame = cap.read()
+        if ret:
+            cv2.putText(frame, recipe[step], (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+            cv2.imshow("Recipe Assistant", frame)
+            if cv2.waitKey(1000) & 0xFF == ord('n'):
+                step += 1
+        else:
+            break
+    cap.release()
+    cv2.destroyAllWindows()
+
+# Sample usage
+recipe_steps = ["Chop onions", "Boil water", "Add pasta", "Serve with sauce"]
+display_recipe(recipe_steps)
